@@ -3,7 +3,9 @@ import { View, TouchableOpacity, Text } from "react-native"
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
+import TextButton from "./TextButton"
 import { getMetricMetaInfo, timeToString } from "../utils/helpers"
+import { Ionicons } from "@expo/vector-icons"
 
 function SubmitBtn({ onPress }) {
   return (
@@ -46,7 +48,7 @@ export default class AddEntry extends Component {
 
       return {
         ...state, // Optional
-        [metric]: count < 0 ? 0 : count,
+        [metric]: count < 0 ? 0 : count
       }
     })
   }
@@ -72,8 +74,28 @@ export default class AddEntry extends Component {
     // Clear local notification
   }
 
+  reset = () => {
+    const key = timeToString()
+
+    // Update Redux
+
+    // Route to Home
+
+    // Update "DB"
+  };
+
   render() {
     const metaInfo = getMetricMetaInfo()
+
+    if (this.props.alreadyLogged) {
+      return (
+        <View>
+          <Ionicons name={"ios-happy"} size={100} />
+          <Text>You already logged your information for today.</Text>
+          <TextButton onPress={this.reset}>Reset</TextButton>
+        </View>
+      )
+    }
 
     return (
       <View>
