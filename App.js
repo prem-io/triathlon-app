@@ -1,8 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
-import AddEntry from './components/AddEntry'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import AddEntry from './components/AddEntry'
+import History from './components/History'
 import reducer from './reducers'
 
 export default function App() {
@@ -11,7 +12,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
-        <AddEntry />
+        <View style={{ height: 25 }} />
+        {/* <AddEntry /> */}
+        <History />
       </View>
     </Provider>
   )
