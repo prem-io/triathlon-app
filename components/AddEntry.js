@@ -14,6 +14,8 @@ import { getMetricMetaInfo, timeToString, getDailyReminderValue } from "../utils
 import { submitEntry, removeEntry } from '../utils/api'
 
 import { purple, white } from "../utils/colors"
+import { CommonActions } from '@react-navigation/core'
+// import { CommonActions } from '@react-navigation/native'
 
 function SubmitBtn({ onPress }) {
   return (
@@ -80,6 +82,8 @@ class AddEntry extends Component {
     this.setState(() => ({ run: 0, bike: 0, swim: 0, sleep: 0, eat: 0 }))
 
     // Navigate to home
+    // this.toHome()
+    this.props.goBack()
 
     submitEntry({ key, entry }) // Save to "DB"
 
@@ -95,9 +99,18 @@ class AddEntry extends Component {
     }))
 
     // Route to Home
+    // this.toHome() /** Optional */
+    this.props.goBack()
 
     removeEntry(key) // Update "DB"
   };
+
+  // toHome = () => {
+  //   this.props.navigation.dispatch(
+  //     CommonActions.goBack({
+  //       key: 'AddEntry',
+  //     }))
+  // }
 
   render() {
     const metaInfo = getMetricMetaInfo()
@@ -197,4 +210,11 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(AddEntry)
+function mapDispatchToProps(dispatch, { navigation }) {
+  return {
+    dispatch,
+    goBack: () => navigation.goBack()
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddEntry)
